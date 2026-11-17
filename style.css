@@ -3206,6 +3206,96 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
+.launch-active {
+  overflow: hidden;
+}
+.launch-screen {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.7rem;
+  background:
+    radial-gradient(ellipse at 50% 46%, oklch(0.31 0.055 155 / 0.72), transparent 48%),
+    #101b17;
+  color: #fffaf0;
+  opacity: 1;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.launch-screen.is-leaving {
+  visibility: hidden;
+  opacity: 0;
+}
+.launch-mark {
+  position: relative;
+  display: grid;
+  width: 5.5rem;
+  aspect-ratio: 1;
+  place-items: center;
+  animation: launch-mark-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.launch-mark img {
+  position: relative;
+  z-index: 1;
+  width: 3.8rem;
+  height: 3.8rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px oklch(0.8 0.15 80 / 0.32));
+}
+.launch-orbit {
+  position: absolute;
+  inset: 0;
+  border: 1px solid oklch(0.8 0.15 80 / 0.38);
+  border-radius: 50%;
+  animation: launch-orbit 1.3s ease-out infinite;
+}
+.launch-title {
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  animation: launch-copy-in 0.6s 0.15s ease both;
+}
+.launch-caption {
+  color: oklch(0.82 0.025 85);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: launch-copy-in 0.6s 0.28s ease both;
+}
+@keyframes launch-mark-in {
+  from {
+    opacity: 0;
+    transform: scale(0.78);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes launch-orbit {
+  0% {
+    opacity: 0.75;
+    transform: scale(0.72);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.22);
+  }
+}
+@keyframes launch-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .card-heritage:hover {
     transform: translateY(-4px);
@@ -3259,8 +3349,11 @@ html {
   html {
     scroll-behavior: auto;
   }
-  .scan-frame::after, .float-slow, .float-slower, .rise {
+  .scan-frame::after, .float-slow, .float-slower, .rise, .launch-mark, .launch-orbit, .launch-title, .launch-caption {
     animation: none;
+  }
+  .launch-screen {
+    transition: none;
   }
   .btn, .card-heritage {
     transition: none;
