@@ -3077,6 +3077,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-soft);
+    transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
   }
   .card-night {
     background: oklch(1 0 0 / 0.04);
@@ -3201,6 +3202,17 @@
     animation: rise 0.8s ease-out both;
   }
 }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card-heritage:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 34px -20px oklch(0.2 0.03 50 / 0.32);
+    border-color: oklch(0.72 0.1 75 / 0.55);
+  }
+}
 @keyframes scan {
   0%, 100% {
     top: 14%;
@@ -3228,8 +3240,17 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .scan-frame::after, .float-slow, .float-slower, .rise {
     animation: none;
+  }
+  .btn, .card-heritage {
+    transition: none;
+  }
+  .btn:hover, .card-heritage:hover {
+    transform: none;
   }
 }
 @property --tw-translate-x {
